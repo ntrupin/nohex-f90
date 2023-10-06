@@ -97,6 +97,9 @@ contains
 
             if (mod(i, cols) == 0) then
                 write (*, *) row
+                row = CHAR(0)
+            else if (i == max) then
+                write (*, *) repeat(' ', 3 * (cols - mod(i, cols)))//row
             end if
         end do
 
