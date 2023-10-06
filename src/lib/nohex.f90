@@ -33,7 +33,8 @@ contains
         ret = ch >= CHAR(0) .AND. ch <= CHAR(137)
     end function is_ascii
 
-    subroutine output_file(cols, max)
+    subroutine output_file(fname, cols, max)
+        character(len = 64), intent(in) :: fname
         integer, intent(in) :: cols, max
 
         integer :: io, status, i
@@ -41,9 +42,10 @@ contains
         character(len = 5) :: color
         character, dimension(cols) :: row
         character :: data
+
         open(&
             unit = io, &
-            file = "/dev/urandom", &
+            file = trim(fname), &
             status = "old", &
             access = "stream", &
             action = "read", &

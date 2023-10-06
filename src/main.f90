@@ -3,7 +3,7 @@ program nohexmain
     implicit none
 
     integer :: argc, i, intmax, status
-    character(len = 20) :: tmparg
+    character(len = 64) :: tmparg, fname
     character(len = 512) :: emsg
     integer, dimension(:), allocatable :: argv
 
@@ -23,8 +23,14 @@ program nohexmain
     do i = 1, argc
         call get_command_argument(i, tmparg)
 
-        ! read into int
-        read(tmparg, *, iostat = status, iomsg = emsg) argv(i)
+        if (i == 1) then
+            ! filename
+            fname = tmparg
+        else
+            ! read into int
+            read(tmparg, *, iostat = status, iomsg = emsg) argv(i)
+        end if
+
         ! check for errors
         if (status /= 0) then
             print *, emsg
@@ -32,5 +38,5 @@ program nohexmain
         end if
     end do
 
-    call output_file(argv(1), argv(2))
+    call output_file(fname, argv(2), argv(3))
 end program nohexmain
