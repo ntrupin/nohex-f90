@@ -2,4 +2,4 @@
 bin/
 
 # modfile
-nohex.mod
+*.mod
